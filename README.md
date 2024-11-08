@@ -1,37 +1,40 @@
-[![CI](https://github.com/nogibjj/python-ruff-template/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/python-ruff-template/actions/workflows/cicd.yml)
-## Template for Python projects with RUFF linter
+[![CI](https://github.com/nogibjj/Cindy_Gao_mini10_pyspark/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/Cindy_Gao_mini10_pyspark/actions/workflows/cicd.yml)
+# PySpark Data Processing
 
-![1 15_rust_built_python_tools](https://github.com/nogibjj/python-ruff-template/assets/58792/db5f7bda-a977-4c67-acbe-a70fe034fbdf)
+## Purpose of the project:
+* Use PySpark to perform data processing on a large dataset
+* Include at least one Spark SQL query and one data transformation
+<br><br>
+
+## Raw Data Source:
+https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/college-majors/recent-grads.csv
+<br><br>
+
+## Project file structure:
+```plaintext
+├── .devcontainer
+│   ├── Dockerfile
+│   └── devcontainer.json
+├── .github
+│   └── workflows
+│       └── cicd.yml
+├── mylib
+│   ├── __init__.py
+│   └── calculator.py
+├── .gitignore
+├── Dockerfile
+├── LICENSE
+├── Makefile
+├── README.md
+├── main.py
+├── repeat.sh
+├── requirements.txt
+├── setup.sh
+└── test_main.py
+```
+<br><br>
 
 
-
-1. First thing to do on launch is to open a new shell and verify virtualenv is sourced.
-
-Things included are:
-
-* `Makefile`
-
-* `Pytest`
-
-* `pandas`
-
-* `Ruff`:  
-
-Run `make lint` which runs `ruff check`.  You can find out more info on [Ruff here](https://github.com/astral-sh/ruff).
-
-* `Dockerfile`
-
-* `GitHub copilot`
-
-* `jupyter` and `ipython` 
-
-* A base set of libraries for devops and web
-
-* `githubactions`
-
-## References
-
-![1 1-function-essence-of-programming](https://github.com/nogibjj/python-ruff-template/assets/58792/f7f33cd3-cff5-4014-98ea-09b6a29c7557)
 
 
 
