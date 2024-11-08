@@ -2,18 +2,23 @@
 Main cli or app entry point
 """
 
-from mylib.calculator import add
-import click
-
-#var=1;var=2
-
-@click.command("add")
-@click.argument("a", type=int)
-@click.argument("b", type=int)
-def add_cli(a, b):
-    click.echo(add(a, b))
-
+from mylib.calculator import manage_spark, extract, load_data, transform
 
 if __name__ == "__main__":
-    # pylint: disable=no-value-for-parameter
-    add_cli()
+    # Initialize Spark session
+    spark = manage_spark("DataProcessingApp")
+
+    # Extract data
+    data_path = extract()
+
+    # Load data with the recent grads schema
+    recent_grads_df = load_data(spark, data_path)
+
+    # Transform data
+    transformed_df = transform(spark, recent_grads_df)
+
+    # Show transformed data (for debugging/testing purposes)
+    transformed_df.show()
+
+    # Stop Spark session
+    manage_spark("DataProcessingApp", stop=True)
