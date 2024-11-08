@@ -3,7 +3,6 @@ Test goes here
 
 """
 import os
-import requests_mock
 import pytest
 from pyspark.sql import SparkSession
 from pyspark.sql.types import (
@@ -64,41 +63,33 @@ def test_manage_spark():
 
 
 def test_extract():
-    """Test the extract function to ensure it correctly downloads and saves a file."""
-
-    # Set the test URL and file paths to match your extract function
-    test_url = (
-        "https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/"
-        "master/college-majors/recent-grads.csv"
-    )
+    """Test the extract function without a network call by using test content."""
     test_directory = "data"
     test_file_path = f"{test_directory}/recent-grads.csv"
 
-    # Sample content in multiline format
+    # Define sample CSV content
     test_content = (
         b"Rank,Major_code,Major,Total,Men,Women,Major_category\n"
         b"1,1101,Engineering,5000,3000,2000,STEM\n"
     )
 
-    # Use requests_mock.Mocker to mock the request
-    with requests_mock.Mocker() as m:
-        m.get(test_url, content=test_content)
+    # Run the extract function with test content
+    file_path = extract(
+        url="dummy_url",
+        file_path=test_file_path,
+        directory=test_directory,
+        test_content=test_content,
+    )
 
-        # Run the extract function
-        file_path = extract(
-            url=test_url, file_path=test_file_path, directory=test_directory
-        )
+    # Assert the file was created and contains the expected content
+    assert os.path.exists(file_path), "File was not created"
+    with open(file_path, "rb") as f:
+        content = f.read()
+    assert content == test_content, "File content does not match expected content"
 
-        # Assert the file was created and contains the expected content
-        assert os.path.exists(file_path), "File was not created"
-        with open(file_path, "rb") as f:
-            content = f.read()
-        assert content == test_content, "File content does not match expected content"
-
-    # Clean up
-    os.remove(file_path)
-    if os.path.exists(test_directory) and not os.listdir(test_directory):
-        os.rmdir(test_directory)
+    # Clean up test file
+    if os.path.exists(test_file_path):
+        os.remove(test_file_path)
 
 
 def test_load_data(spark):
