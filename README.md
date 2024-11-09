@@ -1,12 +1,21 @@
 [![CI](https://github.com/nogibjj/Cindy_Gao_mini10_pyspark/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/Cindy_Gao_mini10_pyspark/actions/workflows/cicd.yml)
 # PySpark Data Processing
 
-## Purpose of the project:
-* Use PySpark to perform data processing on a large dataset
-* Include at least one Spark SQL query and one data transformation
+
+## Project Overview
+
+The **PySpark Data Processing Project** is designed to process, transform, and analyze a dataset of recent college graduates using PySpark. The project incorporates various steps typical in data engineering and analytics workflows, such as data extraction, loading, transformation, and summarization. With Spark’s powerful processing capabilities, this project handles and transforms data efficiently, and it also includes testing, containerization, and CI/CD integration for reliability and reproducibility.
+<br><br>
+## Key Features
+
+- **Data Extraction**: Downloads the dataset of recent graduates from a specified URL and saves it locally for processing.
+- **Data Loading**: Loads the dataset into a Spark DataFrame using a predefined schema to ensure consistent data types.
+- **Data Transformation**: Adds categorical transformations to the data, specifically creating a new column based on the `ShareWomen` metric, classifying the gender distribution within each major.
+- **Spark SQL Integration**: Uses Spark SQL to perform more complex data filtering and aggregation operations on the dataset, specifically filtering and sorting based on employment totals.
+- **Automated Reporting**: Generates a Markdown summary report of the transformed dataset for easy review and analysis.
 <br><br>
 
-## Raw Data Source:
+## Raw Data Source
 https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/college-majors/recent-grads.csv
 <br><br>
 
@@ -34,6 +43,7 @@ CINDY_GAO_MINI10_PYSPARK/
 └── test_main.py                  # Tests for functions in calculator.py
 ```
 <br><br>
+
 
 ## Summary of calculator.py:
 1. **`manage_spark`**: Initializes or stops a Spark session with optional memory settings.
