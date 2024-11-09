@@ -52,6 +52,9 @@ CINDY_GAO_MINI10_PYSPARK/
 3. **`load_data`**: Loads a CSV file into a Spark DataFrame using a predefined schema to ensure the correct data types.
 
 4. **`transform`**: Adds a new column (`WomenProportion`) to the DataFrame, categorizing the `ShareWomen` column into quartiles (Very Low, Low, High, Very High).
+
+5. **`Spark_SQL`**: Uses Spark SQL to filter and aggregate data. It selects major categories with a total employment count over 10,000 and sorts them in descending order by employment.
+
 <br><br>
 
 ## Transformed Report Summary:
