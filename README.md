@@ -13,34 +13,25 @@ https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/college
 ## Project file structure:
 ```plaintext
 CINDY_GAO_MINI10_PYSPARK/
-├── __pycache__/
 ├── .devcontainer/
-│   ├── devcontainer.json
-│   └── Dockerfile
-├── .github/
-│   └── workflows/
-│       └── cicd.yml
-├── .pytest_cache/
-├── .ruff_cache/
+│   ├── devcontainer.json         # Dev container configuration
+│   └── Dockerfile                # Docker configuration for the container
+├── .github/workflows/
+│   └── cicd.yml                  # GitHub Actions workflow for CI/CD
 ├── data/
-│   └── recent-grads.csv
+│   └── recent-grads.csv          # Original dataset file (downloaded)
 ├── mylib/
-│   ├── __pycache__/
-│   ├── __init__.py
-│   └── calculator.py  #Python module defining core functionality
+│   └── calculator.py             # Core functions for data processing
 ├── output/
-│   └── transformed-recent-grads.md  #The report in Markdown format after data transformation
-├── .coverage
+│   └── transformed-recent-grads.md  # Markdown report with transformed data
 ├── .gitignore
-├── Dockerfile
-├── LICENSE
-├── Makefile
-├── README.md
-├── main.py  #Main entry point for the project
-├── repeat.sh
-├── requirements.txt
-├── setup.sh
-└── test_main.py  #Test file used to verify project functionality
+├── Dockerfile                    # Docker configuration for consistent environments
+├── LICENSE                       # License for the project
+├── Makefile                      # Build and test commands
+├── README.md                     # Project documentation (this file)
+├── main.py                       # Main script to run the data processing workflow
+├── requirements.txt              # Python dependencies
+└── test_main.py                  # Tests for functions in calculator.py
 ```
 <br><br>
 
