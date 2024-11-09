@@ -3,7 +3,7 @@ Main CLI or app entry point
 """
 
 import os
-from mylib.calculator import manage_spark, extract, load_data, transform
+from mylib.calculator import manage_spark, extract, load_data, Spark_SQL, transform
 
 
 def save_to_markdown(df, file_path="output/report.md"):
@@ -31,6 +31,9 @@ if __name__ == "__main__":
 
     # Load data with the recent grads schema
     recent_grads_df = load_data(spark, data_path)
+
+    # Filter categories with high employment using Spark SQL
+    high_employment_categories_df = Spark_SQL(recent_grads_df)
 
     # Transform the entire dataset
     transformed_df = transform(recent_grads_df)

@@ -5,7 +5,7 @@ Test goes here
 import os
 import pytest
 from pyspark.sql import SparkSession
-from mylib.calculator import manage_spark, extract, load_data, transform
+from mylib.calculator import manage_spark, extract, load_data, Spark_SQL, transform
 from main import save_to_markdown  # Import the function from main.py
 from pyspark.sql.types import (
     StructType,
@@ -97,6 +97,55 @@ def test_load_data(spark):
     # # Remove the file after the test to keep the directory clean
     # if os.path.exists(data_path):
     #     os.remove(data_path)
+
+
+def test_Spark_SQL(spark):
+    """Test the Spark_SQL function to ensure it
+    filters and sorts categories correctly."""
+
+    # Create a sample DataFrame
+    data = [
+        (1, "Engineering", 12000),
+        (2, "Humanities & Liberal Arts", 5000),
+        (3, "Biology & Life Science", 15000),
+        (4, "Health", 8000),
+        (5, "Physical Sciences", 11000),
+    ]
+    schema = StructType(
+        [
+            StructField("Rank", IntegerType(), True),
+            StructField("Major_category", StringType(), True),
+            StructField("Employed", IntegerType(), True),
+        ]
+    )
+    df = spark.createDataFrame(data, schema=schema)
+
+    # Apply the Spark_SQL function
+    result_df = Spark_SQL(df)
+
+    # Collect results to verify
+    results = result_df.collect()
+
+    # Check if the number of rows returned is correct
+    # (should only include rows with Total_Employed > 10000)
+    assert len(results) == 3, "Expected 3 rows with Total_Employed > 10000"
+
+    # Verify the categories and sorting order by Total_Employed
+    assert (
+        results[0]["Major_category"] == "Biology & Life Science"
+    ), "Expected 'Biology & Life Science' as the first category"
+    assert (
+        results[1]["Major_category"] == "Engineering"
+    ), "Expected 'Engineering' as the second category"
+    assert (
+        results[2]["Major_category"] == "Physical Sciences"
+    ), "Expected 'Physical Sciences' as the third category"
+    assert (
+        results[0]["Total_Employed"] > results[1]["Total_Employed"]
+    ), "Expected Total_Employed of first result to be greater than second"
+    assert (
+        results[1]["Total_Employed"] > results[2]["Total_Employed"]
+    ), "Expected Total_Employed of second result to be greater than third"
 
 
 def test_transform(spark):

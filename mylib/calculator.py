@@ -78,6 +78,26 @@ def load_data(spark, data="data/recent-grads.csv"):
     
     return df
 
+def Spark_SQL(data: DataFrame) -> DataFrame:
+    """Filter categories with total employment over 10,000 using Spark SQL."""
+    # Register the DataFrame as a temporary view
+    data.createOrReplaceTempView("recent_grads")
+
+    # Use Spark SQL to calculate total employment per category and filter results
+    query = """
+    SELECT 
+        Major_category,
+        SUM(Employed) AS Total_Employed
+    FROM recent_grads
+    GROUP BY Major_category
+    HAVING Total_Employed > 10000
+    ORDER BY Total_Employed DESC
+    """
+
+    # Execute the query and return the resulting DataFrame
+    result_df = data.sql_ctx.sql(query)
+    return result_df
+
 # Transform function to categorize 'ShareWomen' column based on quartiles
 def transform(data: DataFrame) -> DataFrame:
     """Transform data by categorizing 'ShareWomen' into quartile-based categories."""
