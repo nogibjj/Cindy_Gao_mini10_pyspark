@@ -28,26 +28,19 @@ def manage_spark(app_name: str, memory: str = None, stop: bool = False) -> Spark
     
     return session
 
-# Extract data from URL and save it to a local file path
 def extract(
-    url, 
-    file_path="data/recent-grads.csv", 
-    directory="data", 
-    test_content=None
+    url="https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/college-majors/recent-grads.csv",
+    file_path="data/recent-grads.csv",
+    directory="data",
 ):
-    """Extract a URL to a specified file path or use test content if provided."""
+    """Extract a URL to a specified file path."""
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-    # Write test content if provided, otherwise make a network call
-    if test_content:
-        content = test_content
-    else:
-        response = requests.get(url)
-        content = response.content
-        
+    response = requests.get(url)
+    response.raise_for_status()  
     with open(file_path, "wb") as file:
-        file.write(content)
+        file.write(response.content)
 
     return file_path
 
@@ -99,8 +92,8 @@ def transform(data: DataFrame) -> DataFrame:
         (F.col("ShareWomen") > q3, "Very High")
     ]
 
-    # Apply conditions to create GenderCategory4 column
-    return data.withColumn("GenderCategory4", 
+    # Apply conditions to create WomenProportion column
+    return data.withColumn("WomenProportion", 
                            F.when(conditions[0][0], conditions[0][1])
                             .when(conditions[1][0], conditions[1][1])
                             .when(conditions[2][0], conditions[2][1])
